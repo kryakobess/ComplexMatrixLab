@@ -54,9 +54,10 @@ public class ComplexMatrix {
         if (this.columns == another.rows){
             for (int i = 0; i < rows; ++i){
                 for (int j = 0; j < another.columns; ++j){
-
+                    j++;
                 }
             }
+            return null;
         }
         else return null;
     }
