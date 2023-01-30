@@ -1,24 +1,54 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.math.BigInteger;
-
 public class ComplexTest {
     @Test
-    public void complexTest(){
+    public void multiplyComplexTest(){
         Complex num = new Complex(13,2);
         System.out.println(num.asExpForm());
         Complex n1 = new Complex(-18, -50);
         Complex res = new Complex(-134, -686);
-        System.out.println(num.divide(n1));
         Assert.assertEquals(res, num.multiply(n1));
     }
 
     @Test
-    public void matrixTest(){
-        BigInteger bigInteger = new BigInteger(String.valueOf(3232323));
-        Number number = new Complex(3,14);
+    public void addComplexTest(){
+        Complex num = new Complex(54,27);
+        Complex n1 = new Complex(11, -50);
+        Complex res = new Complex(65, -23);
+        Assert.assertEquals(res, num.add(n1));
+    }
+    @Test
+    public void subComplexTest(){
+        Complex num = new Complex(54,27);
+        Complex n1 = new Complex(11, -50);
+        Complex res = new Complex(43, 77);
+        Assert.assertEquals(res, num.subtract(n1));
+    }
+    @Test
+    public void divComplexTest(){
+        Complex num = new Complex(54,27);
+        Complex n1 = new Complex(11, -50);
+        Complex res = new Complex(-0.28843952689813046, 1.1434566959175887);
+        Assert.assertEquals(res, num.divide(n1));
+    }
+    @Test
+    public void multiplyDoubleComplexTest(){
+        Complex num = new Complex(5,27);
+        Complex res = new Complex(60, 324);
+        Assert.assertEquals(res, num.multiply(12));
+    }
+    @Test
+    public void subDoubleComplexTest(){
+        Complex num = new Complex(5,27);
+        Complex res = new Complex(0, 27);
+        Assert.assertEquals(res, num.subtract(5));
+    }
 
-
+    @Test
+    public void matrixCreationTest(){
+        Integer[][] MatInt = {{1,2,3,7},{4,5,6,6}};
+        ComplexMatrix complexMatrix = new ComplexMatrix(3,3, MatInt);
+        System.out.println();
     }
 }

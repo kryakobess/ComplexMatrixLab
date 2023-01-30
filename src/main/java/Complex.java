@@ -1,15 +1,28 @@
+import java.util.List;
 import java.util.Objects;
 
-public class Complex extends Number {
+public class Complex extends Number{
     private double r;
     private double i;
 
     public Complex(){
         this(0,0);
     }
+
     public Complex(double real, double imaginary){
         this.r = real;
         this.i = imaginary;
+    }
+    public Complex(double num){
+        this(num, 0);
+    }
+
+    public static <T extends Number> Complex[] toComplexArray(T[] arr){
+        Complex[] result = new Complex[arr.length];
+        for (int i = 0; i < arr.length; ++i){
+            result[i] = new Complex(arr[i].doubleValue());
+        }
+        return result;
     }
 
     public double getI(){
@@ -34,6 +47,22 @@ public class Complex extends Number {
 
     public double getPhase(){
         return Math.atan2(i,r);
+    }
+
+    public Complex add(double num){
+        return new Complex(this.r + num, this.i);
+    }
+
+    public Complex subtract(double num){
+        return new Complex(this.r - num, this.i);
+    }
+
+    public Complex multiply(double num){
+        return this.multiply(new Complex(num));
+    }
+
+    public Complex divide(double num){
+        return this.divide(new Complex(num));
     }
 
     public Complex add(Complex num){
@@ -88,12 +117,12 @@ public class Complex extends Number {
 
     @Override
     public int intValue() {
-        return (int) r;
+        return (int)r;
     }
 
     @Override
     public long longValue() {
-        return (long) r;
+        return (int)r;
     }
 
     @Override
@@ -105,4 +134,5 @@ public class Complex extends Number {
     public double doubleValue() {
         return r;
     }
+
 }
