@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.Objects;
+
 public class ComplexMatrix {
     private int rows;
     private int columns;
@@ -19,8 +22,13 @@ public class ComplexMatrix {
     }
 
     public <T extends Number> void fillMatrix(T[][] filledMatrix) {
-        for (int i = 0; i < this.rows; ++i) {
-            System.arraycopy(Complex.toComplexArray(filledMatrix[i]), 0, this.matrix[i], 0, columns);
+        if (filledMatrix instanceof Complex[][]){
+            this.setMatrix((Complex[][]) filledMatrix);
+        }
+        else {
+            for (int i = 0; i < this.rows; ++i) {
+                System.arraycopy(Complex.toComplexArray(filledMatrix[i]), 0, this.matrix[i], 0, columns);
+            }
         }
     }
 
@@ -52,15 +60,75 @@ public class ComplexMatrix {
 
     public ComplexMatrix multiply(ComplexMatrix another){
         if (this.columns == another.rows){
-            for (int i = 0; i < rows; ++i){
+            ComplexMatrix result = new ComplexMatrix(this.rows, another.columns);
+            for (int i = 0; i < this.rows; ++i){
                 for (int j = 0; j < another.columns; ++j){
-                    j++;
+                    Complex sum = new Complex(0);
+                    for (int k = 0; k < this.columns; ++k){
+                        sum = sum.add(this.matrix[i][k].multiply(another.matrix[k][j]));
+                    }
+                    result.matrix[i][j] = sum;
                 }
             }
-            return null;
+            return result;
         }
         else return null;
     }
 
+    public ComplexMatrix transpose(){
+        ComplexMatrix result = new ComplexMatrix(this.columns, this.rows);
+        for (int i = 0; i < this.rows; ++i){
+            for (int j = 0; j < this.columns; ++j){
+                result.matrix[j][i] = this.matrix[i][j];
+            }
+        }
+        return result;
+    }
 
+    public int getRows() {
+        return rows;
+    }
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public Complex[][] getMatrix() {
+        return matrix;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public void setColumns(int columns) {
+        this.columns = columns;
+    }
+
+    public void setMatrix(Complex[][] matrix) {
+        this.matrix = matrix;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ComplexMatrix that)) return false;
+        return getRows() == that.getRows() && getColumns() == that.getColumns() && Arrays.deepEquals(getMatrix(), that.getMatrix());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(getRows(), getColumns());
+        result = 31 * result + Arrays.hashCode(getMatrix());
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ComplexMatrix{" +
+                "rows=" + rows +
+                ", columns=" + columns +
+                ", matrix=" + Arrays.deepToString(matrix) +
+                '}';
+    }
 }

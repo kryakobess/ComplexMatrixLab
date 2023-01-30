@@ -103,19 +103,6 @@ public class Complex extends Number{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Complex)) return false;
-        Complex complex = (Complex) o;
-        return Double.compare(complex.r, r) == 0 && Double.compare(complex.i, i) == 0;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(r, i);
-    }
-
-    @Override
     public int intValue() {
         return (int)r;
     }
@@ -133,6 +120,18 @@ public class Complex extends Number{
     @Override
     public double doubleValue() {
         return r;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Complex complex)) return false;
+        return Double.compare(complex.getR(), getR()) == 0 && Double.compare(complex.getI(), getI()) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getR(), getI());
     }
 
 }

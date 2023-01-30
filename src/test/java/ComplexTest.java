@@ -44,11 +44,4 @@ public class ComplexTest {
         Complex res = new Complex(0, 27);
         Assert.assertEquals(res, num.subtract(5));
     }
-
-    @Test
-    public void matrixCreationTest(){
-        Integer[][] MatInt = {{1,2,3,7},{4,5,6,6}};
-        ComplexMatrix complexMatrix = new ComplexMatrix(3,3, MatInt);
-        System.out.println();
-    }
 }
