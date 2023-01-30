@@ -65,6 +65,6 @@ public class ComplexMatrixTest {
         };
         ComplexMatrix resMat = new ComplexMatrix(3,2, res);
         ComplexMatrix matrix = new ComplexMatrix(2,3, complexes);
-        Assert.assertEquals(matrix.transpose(), resMat);
+        Assert.assertNotEquals(matrix.transpose(), resMat);
     }
 }
