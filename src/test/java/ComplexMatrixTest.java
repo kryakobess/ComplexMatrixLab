@@ -61,10 +61,31 @@ public class ComplexMatrixTest {
         Complex[][] res = {
                 {new Complex(5.15, 9), new Complex(7,6)},
                 {new Complex(13,12), new Complex(0,-4)},
-                {new Complex(2,3), new Complex(9.2, -7)},
+                {new Complex(2,3), new Complex(9.2, -7)}
         };
         ComplexMatrix resMat = new ComplexMatrix(3,2, res);
         ComplexMatrix matrix = new ComplexMatrix(2,3, complexes);
         Assert.assertEquals(matrix.transpose(), resMat);
+    }
+
+    @Test
+    public void determinantTest(){
+        Double[][] testMat = {{143.0, 2.0, 33.0, 5.0},{5.0,55.5, 51.0, 1.0},{19.0, 18.0, 20.19, 88.0},{0.01,89.0,43.0,12.0}};
+        ComplexMatrix matrix = new ComplexMatrix(4,4,testMat);
+        double expectedR = 25549562.83655;
+        double expectedI = 0;
+        Complex result = matrix.determinant();
+        Assert.assertTrue(expectedR-result.getR() <= 1E-5 && expectedI - result.getI() <= 1E-5);
+
+        Complex[][] testCompMat = {
+                {new Complex(5.15, 9), new Complex(7,6), new Complex(8,-21)},
+                {new Complex(13,12), new Complex(0,-4),new Complex(11,6)},
+                {new Complex(2,3), new Complex(9.2, -7), new Complex(76, 12)}
+        };
+        matrix = new ComplexMatrix(3,3, testCompMat);
+        expectedR = 4415.72;
+        expectedI = -18315.53;
+        result = matrix.determinant();
+        Assert.assertTrue(expectedR-result.getR() <= 1E-2 && expectedI - result.getI() <= 1E-2);
     }
 }

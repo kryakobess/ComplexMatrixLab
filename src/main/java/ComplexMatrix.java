@@ -58,6 +58,49 @@ public class ComplexMatrix {
         else return null;
     }
 
+    public Complex determinant(){
+        if (this.rows != this.columns) return null;
+        else {
+            Complex[][] matrix = new Complex[rows][rows];
+            for (int i = 0; i < rows; ++i){
+                System.arraycopy(this.matrix[i], 0, matrix[i], 0, rows);
+            }
+            double EPS = 1E-9;
+
+            Complex det = new Complex(1);
+            for (int i = 0; i < rows; ++i){
+                int k = i;
+                for (int j = i+1; j < rows; ++j){
+                    if (matrix[j][i].getAbs() > matrix[k][i].getAbs()){
+                        k = j;
+                    }
+                }
+                if (matrix[k][i].getAbs() < EPS){
+                    det = new Complex(0);
+                    break;
+                }
+                Complex[] tmp = matrix[i];
+                matrix[i] = matrix[k];
+                matrix[k] = tmp;
+                if (i != k){
+                    det = det.multiply(new Complex(-1));
+                }
+                det = det.multiply(matrix[i][i]);
+                for (int j = i+1; j < rows; ++j){
+                    matrix[i][j] = matrix[i][j].divide(matrix[i][i]);
+                }
+                for (int j = 0; j < rows; ++j){
+                    if (j != i && matrix[j][i].getAbs() > EPS){
+                        for (int l = i +1; l < rows; ++l){
+                            matrix[j][l] = matrix[j][l].subtract(matrix[i][l].multiply(matrix[j][i]));
+                        }
+                    }
+                }
+            }
+            return det;
+        }
+    }
+
     public ComplexMatrix multiply(ComplexMatrix another){
         if (this.columns == another.rows){
             ComplexMatrix result = new ComplexMatrix(this.rows, another.columns);
