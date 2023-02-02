@@ -6,8 +6,6 @@ public class ComplexMatrix {
     private int columns;
     private Complex[][] matrix;
 
-    private class IncorrectMatrixSizeException extends Throwable{};
-
     public ComplexMatrix(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
