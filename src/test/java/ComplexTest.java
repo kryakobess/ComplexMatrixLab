@@ -44,4 +44,11 @@ public class ComplexTest {
         Complex res = new Complex(0, 27);
         Assert.assertEquals(res, num.subtract(5));
     }
+
+    @Test
+    public void parseTest(){
+        String line = "23.15 - 19i";
+        Complex res = Complex.parseComplex(line);
+        Assert.assertTrue(res.getR() - 23.15 >= 1E-5 && res.getI() + 19 >= 1E-5);
+    }
 }

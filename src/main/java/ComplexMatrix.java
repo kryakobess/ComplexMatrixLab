@@ -18,7 +18,9 @@ public class ComplexMatrix {
         this(rows, columns);
         this.fillMatrix(filledMatrix);
     }
-
+    /*
+     * Fills matrix parameter by setting another Complex matrix or copying the objects of Number Matrix
+     */
     public <T extends Number> void fillMatrix(T[][] filledMatrix) {
         if (filledMatrix instanceof Complex[][]){
             this.setMatrix((Complex[][]) filledMatrix);
@@ -29,7 +31,10 @@ public class ComplexMatrix {
             }
         }
     }
-
+    /*
+     * Returns ComplexMatrix object as a result of addition
+     * between this ComplexMatrix and another ComplexMatrix
+     */
     public ComplexMatrix add(ComplexMatrix another){
         if (this.rows == another.rows && this.columns == another.columns){
             ComplexMatrix resultMatrix = new ComplexMatrix(this.rows, this.columns);
@@ -42,7 +47,10 @@ public class ComplexMatrix {
         }
         else return null;
     }
-
+    /*
+     * Returns ComplexMatrix object as a result of subtraction
+     * between this ComplexMatrix and another ComplexMatrix
+     */
     public ComplexMatrix subtract(ComplexMatrix another){
         if (this.rows == another.rows && this.columns == another.columns){
             ComplexMatrix resultMatrix = new ComplexMatrix(this.rows, this.columns);
@@ -55,9 +63,11 @@ public class ComplexMatrix {
         }
         else return null;
     }
-
+    /*
+     * Returns determinant of particular ComplexMatrix as a Complex object
+     */
     public Complex determinant(){
-        if (this.rows != this.columns) return null;
+        if (this.rows != this.columns) throw new ArithmeticException("Cannot calculate determinant of not squared matrix");
         else {
             Complex[][] matrix = new Complex[rows][rows];
             for (int i = 0; i < rows; ++i){
@@ -98,7 +108,10 @@ public class ComplexMatrix {
             return det;
         }
     }
-
+    /*
+     * Returns ComplexMatrix object as a result of multiplication
+     * between this ComplexMatrix and another ComplexMatrix
+     */
     public ComplexMatrix multiply(ComplexMatrix another){
         if (this.columns == another.rows){
             ComplexMatrix result = new ComplexMatrix(this.rows, another.columns);
@@ -115,7 +128,9 @@ public class ComplexMatrix {
         }
         else return null;
     }
-
+    /*
+     * Returns transposed version of ComplexMatrix
+     */
     public ComplexMatrix transpose(){
         ComplexMatrix result = new ComplexMatrix(this.columns, this.rows);
         for (int i = 0; i < this.rows; ++i){
@@ -125,27 +140,39 @@ public class ComplexMatrix {
         }
         return result;
     }
-
+    /*
+     * Returns rows parameter
+     */
     public int getRows() {
         return rows;
     }
-
+    /*
+     * Returns columns parameter
+     */
     public int getColumns() {
         return columns;
     }
-
+    /*
+     * Returns matrix parameter
+     */
     public Complex[][] getMatrix() {
         return matrix;
     }
-
+    /*
+     * Sets rows parameter
+     */
     public void setRows(int rows) {
         this.rows = rows;
     }
-
+    /*
+     * Sets columns parameter
+     */
     public void setColumns(int columns) {
         this.columns = columns;
     }
-
+    /*
+     * Sets matrix parameter
+     */
     public void setMatrix(Complex[][] matrix) {
         this.matrix = matrix;
     }
@@ -166,10 +193,13 @@ public class ComplexMatrix {
 
     @Override
     public String toString() {
-        return "ComplexMatrix{" +
-                "rows=" + rows +
-                ", columns=" + columns +
-                ", matrix=" + Arrays.deepToString(matrix) +
-                '}';
+        StringBuilder result = new StringBuilder("ComplexMatrix\n" + "rows=" + rows + ", columns=" + columns + "\n");
+        for (int i = 0; i < rows; ++i){
+            for (int j = 0; j < columns; ++j){
+                result.append(matrix[i][j]).append(" ");
+            }
+            result.append("\n");
+        }
+        return result.toString();
     }
 }
