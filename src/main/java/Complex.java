@@ -148,6 +148,7 @@ public class Complex extends Number{
             String[] values = line.split("\\+");
             if (values.length == 1) {
                 values = line.split("\\-");
+                values[1] = "-" + values[1];
             }
             try {
                 return new Complex(Double.parseDouble(values[0]), Double.parseDouble(values[1]));

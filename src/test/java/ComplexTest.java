@@ -49,6 +49,6 @@ public class ComplexTest {
     public void parseTest(){
         String line = "23.15 - 19i";
         Complex res = Complex.parseComplex(line);
-        Assert.assertTrue(res.getR() - 23.15 >= 1E-5 && res.getI() + 19 >= 1E-5);
+        Assert.assertTrue(Math.abs(res.getR() - 23.15) < 1E-5 && Math.abs(res.getI() + 19) < 1E-5);
     }
 }
